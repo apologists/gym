@@ -114,6 +114,7 @@ curl -X POST -H 'content-type: application/json' -d '{"action": "inc"}' https://
 - MYSQL_ADDRESS
 - MYSQL_PASSWORD
 - MYSQL_USERNAME
+-     url: jdbc:mysql://sh-cynosdbmysql-grp-k26wyze8.sql.tencentcdb.com:27631/springboot_demo?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
 以上三个变量的值请按实际情况填写。如果使用云托管内MySQL，可以在控制台MySQL页面获取相关信息。
 
 
