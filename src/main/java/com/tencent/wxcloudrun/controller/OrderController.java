@@ -48,7 +48,7 @@ public class OrderController {
 	/**
 	 * 修改 订单表
 	 */
-	@PutMapping("/update")
+	@PostMapping("/delete")
 	public ApiResponse update(@RequestBody OrderDTO dto) {
 		return ApiResponse.ok(orderService.updateById(dto));
 	}

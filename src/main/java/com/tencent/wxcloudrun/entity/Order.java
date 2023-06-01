@@ -1,5 +1,6 @@
 package com.tencent.wxcloudrun.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import lombok.Data;
@@ -19,7 +20,7 @@ import java.time.LocalDate;
 public class Order {
 
     private static final long serialVersionUID = 1L;
-
+  @TableId(value = "order_id")
   private String orderId;
   private String userId;
   private Integer num;
