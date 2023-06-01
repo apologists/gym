@@ -2,12 +2,18 @@ package com.tencent.wxcloudrun.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.tencent.wxcloudrun.dto.OrderDTO;
+import com.tencent.wxcloudrun.entity.Order;
+import com.tencent.wxcloudrun.service.IOrderService;
+import com.tencent.wxcloudrun.service.impl.OrderServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.net.URLDecoder;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.util.Locale;
 
 
 //返回json字符串的数据，直接可以编写RESTFul的接口
@@ -15,6 +21,8 @@ import java.util.Date;
 @RequestMapping("/api")
 public class SvrController {
 
+    @Resource
+    private IOrderService orderService;
     /*********************************************************************/
     //仅针对旧板协议才有IsConnect接口(非6.0开头的)
     @RequestMapping(value = "/IsConnect", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")//访问地址与请求方法，
@@ -109,15 +117,27 @@ public class SvrController {
             String SN = json.getString("SN");//卡号
             //......以下写业务逻辑
             //................
-
-            //返回数据
+            OrderDTO orderDTO = new OrderDTO();
+            orderDTO.setOrderId(SN);
+            Order detail = orderService.getOne(orderDTO);
             JSONObject jsonObj = new JSONObject();
-            jsonObj.put("Status", 1);
-            jsonObj.put("StatusDesc", "验票成功\r\n请进");
-            jsonObj.put("Relay1Time", 1000);
-            jsonObj.put("TurnGateTimes", 1);
-            //jsonObj.put("TTS","验票成功");
+           if(detail != null
+                    && detail.getDeleted()==0
+                    && getDate(detail.getStartTime()).before(new Date())
+                    && getDate(detail.getEndTime()).after(new Date())){
+                //返回数据
+                jsonObj.put("Status", 1);
+                jsonObj.put("StatusDesc", "验票成功\r\n请进");
+                jsonObj.put("Relay1Time", 1000);
+                jsonObj.put("TurnGateTimes", 1);
 
+            }else {
+                //返回数据
+                jsonObj.put("Status", 0);
+                jsonObj.put("StatusDesc", "验票失败\r\n");
+                jsonObj.put("Relay1Time", 1000);
+                jsonObj.put("TurnGateTimes", 1);
+            }
             String ret = jsonObj.toJSONString(); //返回格式：{"Status":1,"StatusDesc":"验票成功\r\n请进","TurnGateTimes":1,"Relay1Time":1000}
             System.out.println("Return CheckCode:" + ret);
             return ret;
@@ -162,5 +182,15 @@ public class SvrController {
             System.out.println("Ex:" + e.getMessage());
         }
         return "";
+    }
+
+    private Date getDate(String time) throws ParseException {
+        String parrte = "yyyy-MM-dd HH:mm:ss";
+        Locale locale = Locale.getDefault();
+        //利用SimpleDateFormat 进行时间转换
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(parrte,locale);
+        //输出的时间 返回值为Date
+        return simpleDateFormat.parse(time);
+
     }
 }

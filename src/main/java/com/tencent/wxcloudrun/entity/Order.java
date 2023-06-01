@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 
 
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * 订单表实体类
@@ -26,6 +27,8 @@ public class Order {
   private Integer num;
   private LocalDate createTime;
   private LocalDate updateTime;
+  private String startTime;
+  private String endTime;
   private Integer deleted;
 
 

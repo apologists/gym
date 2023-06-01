@@ -28,8 +28,6 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public Integer save(OrderDTO dto) {
-        dto.setCreateTime(LocalDate.now());
-        dto.setUpdateTime(LocalDate.now());
         return orderMapper.insert(BeanCopyUtils.copy(dto,Order.class));
     }
 

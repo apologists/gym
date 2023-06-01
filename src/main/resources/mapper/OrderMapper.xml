@@ -8,6 +8,8 @@
         <result column="num" property="num"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
         <result column="deleted" property="deleted"/>
     </resultMap>
 

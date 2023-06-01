@@ -4,6 +4,7 @@ package com.tencent.wxcloudrun.dto;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * 订单表数据传输对象实体类
@@ -20,6 +21,7 @@ public class OrderDTO  {
 					private LocalDate createTime;
 					private LocalDate updateTime;
 					private Integer deleted;
-
+					private String startTime;
+					private String endTime;
 
 		}
