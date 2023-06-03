@@ -116,7 +116,9 @@ public class SvrController {
             JSONObject json = JSON.parseObject(sb.toString());
             System.out.println("res CheckCode:" + json);
             String SN = json.getString("SN");//卡号
-            String orderId = json.getString("CodeVal");//卡号
+            String CodeVal = json.getString("CodeVal");//卡号
+            JSONObject CodeValParams = JSON.parseObject(CodeVal);
+            String orderId = CodeValParams.getString("meet");
             //......以下写业务逻辑
             //................
             OrderDTO orderDTO = new OrderDTO();
