@@ -113,8 +113,8 @@ public class SvrController {
                 sb.delete(0, 11); //去掉paramaters=
             System.out.println("CheckCode:" + sb);
             //解析json
-            System.out.println("res CheckCode:" + params);
             JSONObject json = JSON.parseObject(sb.toString());
+            System.out.println("res CheckCode:" + json);
             String SN = json.getString("SN");//卡号
             String orderId = json.getString("CodeVal");//卡号
             //......以下写业务逻辑
