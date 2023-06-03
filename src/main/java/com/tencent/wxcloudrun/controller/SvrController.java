@@ -113,6 +113,7 @@ public class SvrController {
                 sb.delete(0, 11); //去掉paramaters=
             System.out.println("CheckCode:" + sb);
             //解析json
+            System.out.println("res CheckCode:" + params);
             JSONObject json = JSON.parseObject(sb.toString());
             String SN = json.getString("SN");//卡号
             String orderId = json.getString("orderId");//卡号
@@ -128,14 +129,14 @@ public class SvrController {
                     && getDate(detail.getEndTime()).after(new Date())){
                 //返回数据
                 jsonObj.put("Status", 1);
-                jsonObj.put("StatusDesc", "验票成功\r\n请进");
+                jsonObj.put("StatusDesc", "验票成功");
                 jsonObj.put("Relay1Time", 1000);
                 jsonObj.put("TurnGateTimes", 1);
 
             }else {
                 //返回数据
                 jsonObj.put("Status", 0);
-                jsonObj.put("StatusDesc", "验票失败\r\n");
+                jsonObj.put("StatusDesc", "验票失败");
                 jsonObj.put("Relay1Time", 1000);
                 jsonObj.put("TurnGateTimes", 1);
             }
