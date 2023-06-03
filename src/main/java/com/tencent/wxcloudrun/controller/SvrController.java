@@ -188,7 +188,7 @@ public class SvrController {
     }
 
     private Date getDate(String time) throws ParseException {
-        String parrte = "yyyy-MM-dd HH:mm:ss";
+        String parrte = "yyyy-MM-dd HH:mm";
         Locale locale = Locale.getDefault();
         //利用SimpleDateFormat 进行时间转换
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(parrte,locale);
