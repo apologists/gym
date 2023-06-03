@@ -115,10 +115,11 @@ public class SvrController {
             //解析json
             JSONObject json = JSON.parseObject(sb.toString());
             String SN = json.getString("SN");//卡号
+            String orderId = json.getString("orderId");//卡号
             //......以下写业务逻辑
             //................
             OrderDTO orderDTO = new OrderDTO();
-            orderDTO.setOrderId(SN);
+            orderDTO.setOrderId(orderId);
             Order detail = orderService.getOne(orderDTO);
             JSONObject jsonObj = new JSONObject();
            if(detail != null
