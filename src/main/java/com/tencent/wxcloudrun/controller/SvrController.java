@@ -117,13 +117,17 @@ public class SvrController {
             System.out.println("res CheckCode:" + json);
             String SN = json.getString("SN");//卡号
             String CodeVal = json.getString("CodeVal");//卡号
-            String orderId =  CodeVal.split("=")[1];
-            //......以下写业务逻辑
-            //................
-            OrderDTO orderDTO = new OrderDTO();
-            orderDTO.setOrderId(orderId);
-            Order detail = orderService.getOne(orderDTO);
+            Order detail = new Order();
             JSONObject jsonObj = new JSONObject();
+            if (!CodeVal.equals("jsf20230606")) {
+                String orderId =  CodeVal.split("=")[1];
+                //......以下写业务逻辑
+                //................
+                OrderDTO orderDTO = new OrderDTO();
+                orderDTO.setOrderId(orderId);
+                detail = orderService.getOne(orderDTO);
+            }
+
            if(CodeVal.equals("jsf20230606") || (detail != null
                     && detail.getDeleted()==0
                     && getDate(detail.getStartTime()).before(new Date())
