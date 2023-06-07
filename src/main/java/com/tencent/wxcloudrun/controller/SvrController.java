@@ -127,7 +127,8 @@ public class SvrController {
                 orderDTO.setOrderId(orderId);
                 detail = orderService.getOne(orderDTO);
             }
-
+            System.out.println("订单信息"+JSONObject.toJSONString(detail));
+            System.out.println("时间信息"+new Date());
            if(CodeVal.equals("jsf20230606") || (detail != null
                     && detail.getDeleted()==0
                     && getDate(detail.getStartTime()).before(new Date())
