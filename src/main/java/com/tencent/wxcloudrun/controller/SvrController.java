@@ -142,7 +142,7 @@ public class SvrController {
             }else {
                 //返回数据
                 jsonObj.put("Status", 0);
-                jsonObj.put("StatusDesc", "验票失败");
+                jsonObj.put("StatusDesc", "验票失败,请联系管理员");
                 jsonObj.put("Relay1Time", 1000);
                 jsonObj.put("TurnGateTimes", 1);
             }
