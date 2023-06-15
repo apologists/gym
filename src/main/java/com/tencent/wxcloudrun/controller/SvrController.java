@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import java.net.URLDecoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -117,35 +118,55 @@ public class SvrController {
             System.out.println("res CheckCode:" + json);
             String SN = json.getString("SN");//卡号
             String CodeVal = json.getString("CodeVal");//卡号
+            String[] split = CodeVal.split(":");
             Order detail = new Order();
             JSONObject jsonObj = new JSONObject();
-            if (!CodeVal.equals("jsf20230606")) {
+            if (!split[1].equals("jsf20230606")) {
                 String orderId =  CodeVal.split("=")[1];
                 //......以下写业务逻辑
                 //................
                 OrderDTO orderDTO = new OrderDTO();
                 orderDTO.setOrderId(orderId);
                 detail = orderService.getOne(orderDTO);
+
+                if((detail != null
+                        && detail.getDeleted()==0
+                        && getDate(detail.getStartTime()).before(new Date())
+                        && getDate(detail.getEndTime()).after(new Date()))){
+                    //返回数据
+                    jsonObj.put("Status", 1);
+                    jsonObj.put("StatusDesc", "验票成功");
+                    jsonObj.put("Relay1Time", 1000);
+                    jsonObj.put("TurnGateTimes", 1);
+
+                }else {
+                    //返回数据
+                    jsonObj.put("Status", 0);
+                    jsonObj.put("StatusDesc", "验票失败,请联系管理员");
+                    jsonObj.put("Relay1Time", 1000);
+                    jsonObj.put("TurnGateTimes", 1);
+                }
+            }else {
+                Date dateTime = new Date(Long.parseLong(split[0]));
+                Calendar nowTime = Calendar.getInstance();
+                nowTime.setTime(dateTime);
+                nowTime.add(Calendar.MINUTE, 10);
+                if(new Date().before(nowTime.getTime())){
+                    jsonObj.put("Status", 1);
+                    jsonObj.put("StatusDesc", "验票成功");
+                    jsonObj.put("Relay1Time", 1000);
+                    jsonObj.put("TurnGateTimes", 1);
+                }else {
+                    jsonObj.put("Status", 0);
+                    jsonObj.put("StatusDesc", "验票失败,请联系管理员");
+                    jsonObj.put("Relay1Time", 1000);
+                    jsonObj.put("TurnGateTimes", 1);
+                }
+
             }
             System.out.println("订单信息"+JSONObject.toJSONString(detail));
             System.out.println("时间信息"+new Date());
-           if(CodeVal.equals("jsf20230606") || (detail != null
-                    && detail.getDeleted()==0
-                    && getDate(detail.getStartTime()).before(new Date())
-                    && getDate(detail.getEndTime()).after(new Date()))){
-                //返回数据
-                jsonObj.put("Status", 1);
-                jsonObj.put("StatusDesc", "验票成功");
-                jsonObj.put("Relay1Time", 1000);
-                jsonObj.put("TurnGateTimes", 1);
 
-            }else {
-                //返回数据
-                jsonObj.put("Status", 0);
-                jsonObj.put("StatusDesc", "验票失败,请联系管理员");
-                jsonObj.put("Relay1Time", 1000);
-                jsonObj.put("TurnGateTimes", 1);
-            }
             String ret = jsonObj.toJSONString(); //返回格式：{"Status":1,"StatusDesc":"验票成功\r\n请进","TurnGateTimes":1,"Relay1Time":1000}
             System.out.println("Return CheckCode:" + ret);
             return ret;
