@@ -121,7 +121,7 @@ public class SvrController {
             String[] split = CodeVal.split(":");
             Order detail = new Order();
             JSONObject jsonObj = new JSONObject();
-            if (!split[1].equals("jsf20230606")) {
+            if (split.length == 1 || !split[1].equals("jsf20230606")) {
                 String orderId =  CodeVal.split("=")[1];
                 //......以下写业务逻辑
                 //................
