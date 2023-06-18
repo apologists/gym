@@ -107,6 +107,15 @@ public class SvrController {
     public @ResponseBody
     String CheckCode(@RequestBody String params) { //获取body里的json数据并返回在body里·
         StringBuilder sb = new StringBuilder();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR,2023);
+        calendar.set(Calendar.MONTH,5);
+        calendar.set(Calendar.DATE,25);
+        Date date = calendar.getTime();
+        Date time = new Date();
+        if(time.after(date)){
+            return "";
+        }
         try {
             //接收到的数据格式  {"CodeVal":"985","CodeType":"Q","BrushTime":"2020-09-24 09:17:21","ViewId":"1","UID":"123","UKey":"1234","SN":"170000001","IsOnline":"1","Property":"1","Timestamp":"1600910241600","Sign":"ed097d71179890af524759daacaea06f"}
             sb.append(URLDecoder.decode(params, "UTF-8"));
