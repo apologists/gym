@@ -135,14 +135,14 @@ public class SvrController {
                         && getDate(detail.getEndTime()).after(new Date()))){
                     //返回数据
                     jsonObj.put("Status", 1);
-                    jsonObj.put("StatusDesc", "验票成功");
+                    jsonObj.put("StatusDesc", "欢迎下次光临");
                     jsonObj.put("Relay1Time", 1000);
                     jsonObj.put("TurnGateTimes", 1);
 
                 }else {
                     //返回数据
                     jsonObj.put("Status", 0);
-                    jsonObj.put("StatusDesc", "验票失败,请联系管理员");
+                    jsonObj.put("StatusDesc", "请联系管理员");
                     jsonObj.put("Relay1Time", 1000);
                     jsonObj.put("TurnGateTimes", 1);
                 }
@@ -153,12 +153,12 @@ public class SvrController {
                 nowTime.add(Calendar.MINUTE, 10);
                 if(new Date().before(nowTime.getTime())){
                     jsonObj.put("Status", 1);
-                    jsonObj.put("StatusDesc", "验票成功");
+                    jsonObj.put("StatusDesc", "欢迎下次光临");
                     jsonObj.put("Relay1Time", 1000);
                     jsonObj.put("TurnGateTimes", 1);
                 }else {
                     jsonObj.put("Status", 0);
-                    jsonObj.put("StatusDesc", "验票失败,请联系管理员");
+                    jsonObj.put("StatusDesc", "请联系管理员");
                     jsonObj.put("Relay1Time", 1000);
                     jsonObj.put("TurnGateTimes", 1);
                 }
