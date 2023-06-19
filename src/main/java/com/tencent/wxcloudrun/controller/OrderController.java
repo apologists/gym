@@ -54,6 +54,9 @@ public class OrderController {
 	 */
 	@PostMapping("/delete")
 	public ApiResponse update(@RequestBody OrderDTO dto) {
+		dto.setCreateTime(LocalDate.now());
+		dto.setUpdateTime(LocalDate.now());
+		dto.setDeleted(1);
 		return ApiResponse.ok(orderService.updateById(dto));
 	}
 

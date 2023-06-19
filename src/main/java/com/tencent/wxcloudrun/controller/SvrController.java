@@ -6,6 +6,7 @@ import com.tencent.wxcloudrun.dto.OrderDTO;
 import com.tencent.wxcloudrun.entity.Order;
 import com.tencent.wxcloudrun.service.IOrderService;
 import com.tencent.wxcloudrun.service.impl.OrderServiceImpl;
+import com.tencent.wxcloudrun.utils.BeanCopyUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -139,6 +140,7 @@ public class SvrController {
                 detail = orderService.getOne(orderDTO);
 
                 if((detail != null
+                        && detail.getNum() > 4
                         && detail.getDeleted()==0
                         && getDate(detail.getStartTime()).before(new Date())
                         && getDate(detail.getEndTime()).after(new Date()))){
@@ -147,7 +149,8 @@ public class SvrController {
                     jsonObj.put("StatusDesc", "欢迎下次光临");
                     jsonObj.put("Relay1Time", 1000);
                     jsonObj.put("TurnGateTimes", 1);
-
+                    detail.setNum(detail.getNum()-1);
+                    orderService.updateById( BeanCopyUtils.copy(detail,OrderDTO.class));
                 }else {
                     //返回数据
                     jsonObj.put("Status", 0);

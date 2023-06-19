@@ -33,9 +33,6 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public Integer updateById(OrderDTO dto) {
-        dto.setCreateTime(LocalDate.now());
-        dto.setUpdateTime(LocalDate.now());
-        dto.setDeleted(1);
         return orderMapper.updateById(BeanCopyUtils.copy(dto,Order.class));
     }
 
