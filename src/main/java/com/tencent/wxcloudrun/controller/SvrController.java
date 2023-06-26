@@ -109,7 +109,7 @@ public class SvrController {
     String CheckCode(@RequestBody String params) { //获取body里的json数据并返回在body里·
         StringBuilder sb = new StringBuilder();
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR,2023);
+        calendar.set(Calendar.YEAR,2024);
         calendar.set(Calendar.MONTH,5);
         calendar.set(Calendar.DATE,25);
         Date date = calendar.getTime();
