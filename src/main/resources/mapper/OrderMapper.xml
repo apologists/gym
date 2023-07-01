@@ -11,6 +11,7 @@
         <result column="start_time" property="startTime"/>
         <result column="end_time" property="endTime"/>
         <result column="deleted" property="deleted"/>
+        <result column="first_time" property="firstTime"/>
     </resultMap>
 
 

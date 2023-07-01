@@ -30,6 +30,6 @@ public class Order {
   private String startTime;
   private String endTime;
   private Integer deleted;
-
+  private String firstTime;
 
 }

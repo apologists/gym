@@ -23,5 +23,6 @@ public class OrderDTO  {
 					private Integer deleted;
 					private String startTime;
 					private String endTime;
+					private String firstTime;
 
 		}

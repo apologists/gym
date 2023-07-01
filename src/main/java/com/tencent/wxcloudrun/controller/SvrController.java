@@ -139,24 +139,39 @@ public class SvrController {
                 orderDTO.setOrderId(orderId);
                 detail = orderService.getOne(orderDTO);
 
-                if((detail != null
-                        && detail.getNum() > 4
-                        && detail.getDeleted()==0
-                        && getDate(detail.getStartTime()).before(new Date())
-                        && getDate(detail.getEndTime()).after(new Date()))){
+                if (detail != null && detail.getNum() == 10 && getDate(detail.getStartTime()).before(new Date())
+                        && getDate(detail.getEndTime()).after(new Date())) {
+                    Calendar ca = Calendar.getInstance();
+                    ca.setTime(new Date());
+                    ca.add(Calendar.MINUTE,90);
+                    String firstTime =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(ca.getTime());
                     //返回数据
                     jsonObj.put("Status", 1);
                     jsonObj.put("StatusDesc", "欢迎下次光临");
                     jsonObj.put("Relay1Time", 1000);
                     jsonObj.put("TurnGateTimes", 1);
                     detail.setNum(detail.getNum()-1);
+                    detail.setFirstTime(firstTime);
                     orderService.updateById( BeanCopyUtils.copy(detail,OrderDTO.class));
                 }else {
-                    //返回数据
-                    jsonObj.put("Status", 0);
-                    jsonObj.put("StatusDesc", "请联系管理员");
-                    jsonObj.put("Relay1Time", 1000);
-                    jsonObj.put("TurnGateTimes", 1);
+                    if((detail != null
+                            && detail.getNum() > 4
+                            && detail.getDeleted()==0
+                            && getDate(detail.getFirstTime()).after(new Date()))){
+                        //返回数据
+                        jsonObj.put("Status", 1);
+                        jsonObj.put("StatusDesc", "欢迎下次光临");
+                        jsonObj.put("Relay1Time", 1000);
+                        jsonObj.put("TurnGateTimes", 1);
+                        detail.setNum(detail.getNum()-1);
+                        orderService.updateById( BeanCopyUtils.copy(detail,OrderDTO.class));
+                    }else {
+                        //返回数据
+                        jsonObj.put("Status", 0);
+                        jsonObj.put("StatusDesc", "请联系管理员");
+                        jsonObj.put("Relay1Time", 1000);
+                        jsonObj.put("TurnGateTimes", 1);
+                    }
                 }
             }else {
                 Date dateTime = new Date(Long.parseLong(split[0]));
