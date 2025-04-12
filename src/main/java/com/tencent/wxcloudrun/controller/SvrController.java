@@ -13,9 +13,7 @@ import javax.annotation.Resource;
 import java.net.URLDecoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
+import java.util.*;
 
 
 //返回json字符串的数据，直接可以编写RESTFul的接口
@@ -155,7 +153,7 @@ public class SvrController {
                     orderService.updateById( BeanCopyUtils.copy(detail,OrderDTO.class));
                 }else {
                     if((detail != null
-                            && detail.getNum() > 4
+                            && detail.getNum() > 8
                             && detail.getDeleted()==0
                             && getDate(detail.getFirstTime()).after(new Date()))){
                         //返回数据
