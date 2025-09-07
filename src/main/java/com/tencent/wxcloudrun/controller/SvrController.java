@@ -155,7 +155,7 @@ public class SvrController {
                 long currentTime = System.currentTimeMillis(); // 当前时间的时间戳
                 boolean flag = false;
                 // 判断当前时间是否在给定时间戳的3秒内
-                if (currentTime <= timestamp + 30000) {
+                if (currentTime <= timestamp + 3000) {
                     flag = true;
                     System.out.println("当前时间在给定时间戳的3秒内");
                 }
