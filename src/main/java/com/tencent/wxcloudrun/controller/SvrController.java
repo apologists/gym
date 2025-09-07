@@ -130,7 +130,16 @@ public class SvrController {
             Order detail = new Order();
             JSONObject jsonObj = new JSONObject();
             if (split.length == 1 || !split[1].equals("jsf20230606")) {
-                String orderId =  CodeVal.split("=")[1];
+                String orderId =  CodeVal.split("=")[2];
+                String preTime =  CodeVal.split("=")[0];
+                long timestamp = Long.parseLong(preTime); // 给定的时间戳
+                long currentTime = System.currentTimeMillis(); // 当前时间的时间戳
+                boolean flag = false;
+                // 判断当前时间是否在给定时间戳的3秒内
+                if (currentTime <= timestamp + 3000) {
+                    flag = true;
+                    System.out.println("当前时间在给定时间戳的3秒内");
+                }
                 //......以下写业务逻辑
                 //................
                 OrderDTO orderDTO = new OrderDTO();
@@ -154,7 +163,7 @@ public class SvrController {
                     }
                 }
                 if (detail != null && detail.getNum() == 10 && getDate(detail.getStartTime()).before(new Date())
-                        && getDate(detail.getEndTime()).after(new Date())) {
+                        && getDate(detail.getEndTime()).after(new Date()) && flag) {
                     Calendar ca = Calendar.getInstance();
                     ca.setTime(new Date());
                     ca.add(Calendar.MINUTE,90);
@@ -171,7 +180,7 @@ public class SvrController {
                     if((detail != null
                             && detail.getNum() > 8
                             && detail.getDeleted()==0
-                            && getDate(detail.getFirstTime()).after(new Date()))){
+                            && getDate(detail.getFirstTime()).after(new Date())) && flag){
                         //返回数据
                         jsonObj.put("Status", 1);
                         jsonObj.put("StatusDesc", "欢迎下次光临");
