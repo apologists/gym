@@ -129,7 +129,7 @@ public class SvrController {
             String[] split = CodeVal.split(":");
             Order detail = new Order();
             JSONObject jsonObj = new JSONObject();
-            if(split[1].equals("gzry20230606")){
+            if(split.length == 2 && split[1].equals("gzry20230606")){
                 Date dateTime = new Date(Long.parseLong(split[0]));
                 Calendar nowTime = Calendar.getInstance();
                 nowTime.setTime(dateTime);
