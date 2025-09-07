@@ -153,7 +153,7 @@ public class SvrController {
                 String preTime =  CodeVal.split("=")[0];
                 long timestamp = Long.parseLong(preTime); // 给定的时间戳
                 long currentTime = System.currentTimeMillis(); // 当前时间的时间戳
-                boolean flag = false;
+                boolean flag = true;
                 // 判断当前时间是否在给定时间戳的3秒内
                 if (currentTime <= timestamp + 3000) {
                     flag = true;
