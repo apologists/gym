@@ -136,7 +136,23 @@ public class SvrController {
                 OrderDTO orderDTO = new OrderDTO();
                 orderDTO.setOrderId(orderId);
                 detail = orderService.getOne(orderDTO);
-
+                if(split[1].equals("gzry20230606")){
+                    Date dateTime = new Date(Long.parseLong(split[0]));
+                    Calendar nowTime = Calendar.getInstance();
+                    nowTime.setTime(dateTime);
+                    nowTime.add(Calendar.HOUR_OF_DAY, 15);
+                    if(new Date().before(nowTime.getTime())){
+                        jsonObj.put("Status", 1);
+                        jsonObj.put("StatusDesc", "欢迎下次光临");
+                        jsonObj.put("Relay1Time", 1000);
+                        jsonObj.put("TurnGateTimes", 1);
+                    }else {
+                        jsonObj.put("Status", 0);
+                        jsonObj.put("StatusDesc", "请联系管理员");
+                        jsonObj.put("Relay1Time", 1000);
+                        jsonObj.put("TurnGateTimes", 1);
+                    }
+                }
                 if (detail != null && detail.getNum() == 10 && getDate(detail.getStartTime()).before(new Date())
                         && getDate(detail.getEndTime()).after(new Date())) {
                     Calendar ca = Calendar.getInstance();
