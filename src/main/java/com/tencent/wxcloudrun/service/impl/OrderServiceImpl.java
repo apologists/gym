@@ -1,5 +1,6 @@
 package com.tencent.wxcloudrun.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.tencent.wxcloudrun.common.Condition;
@@ -9,6 +10,7 @@ import com.tencent.wxcloudrun.entity.Order;
 import com.tencent.wxcloudrun.service.IOrderService;
 import com.tencent.wxcloudrun.utils.BeanCopyUtils;
 import lombok.AllArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -46,4 +48,10 @@ public class OrderServiceImpl implements IOrderService {
     public Order getOne(OrderDTO dto) {
         return orderMapper.selectOne(Condition.getQueryWrapper(BeanCopyUtils.copy(dto,Order.class)));
     }
+
+    @Override
+    public List<Order> getList(OrderDTO dto) {
+        return orderMapper.selectList(Condition.getQueryWrapper(BeanCopyUtils.copy(dto,Order.class)));
+    }
+
 }

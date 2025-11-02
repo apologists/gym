@@ -60,5 +60,11 @@ public class OrderController {
 		return ApiResponse.ok(orderService.updateById(dto));
 	}
 
-
+	/**
+	 * 修改 订单表
+	 */
+	@PostMapping("/getList")
+	public ApiResponse getList(@RequestBody OrderDTO dto) {
+		return ApiResponse.ok(orderService.getList(dto));
+	}
 }

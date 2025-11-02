@@ -168,7 +168,7 @@ public class SvrController {
                         && getDate(detail.getEndTime()).after(new Date()) && flag) {
                     Calendar ca = Calendar.getInstance();
                     ca.setTime(new Date());
-                    ca.add(Calendar.MINUTE,90);
+//                    ca.add(Calendar.MINUTE,90);
                     String firstTime =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(ca.getTime());
                     //返回数据
                     jsonObj.put("Status", 1);
@@ -179,10 +179,13 @@ public class SvrController {
                     detail.setFirstTime(firstTime);
                     orderService.updateById( BeanCopyUtils.copy(detail,OrderDTO.class));
                 }else {
+                    Calendar ca = Calendar.getInstance();
+                    ca.setTime(getDate(detail.getFirstTime()));
+                    ca.add(Calendar.MINUTE,90);
                     if((detail != null
                             && detail.getNum() > 8
                             && detail.getDeleted()==0
-                            && getDate(detail.getFirstTime()).after(new Date())) && flag){
+                            && ca.getTime().after(new Date())) && flag){
                         //返回数据
                         jsonObj.put("Status", 1);
                         jsonObj.put("StatusDesc", "欢迎下次光临");

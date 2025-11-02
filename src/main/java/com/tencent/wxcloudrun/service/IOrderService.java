@@ -22,4 +22,6 @@ public interface IOrderService {
         Integer deleteLogic(List<Integer> toIntList) ;
 
         Order getOne(OrderDTO dto) ;
+
+        List<Order> getList(OrderDTO dto);
 }
