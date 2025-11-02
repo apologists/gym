@@ -149,16 +149,16 @@ public class SvrController {
                 }
             }
             if (split.length == 1 || !split[1].equals("jsf20230606")) {
-                String orderId =  CodeVal.split("=")[2];
-                String preTime =  CodeVal.split("=")[0];
-                long timestamp = Long.parseLong(preTime); // 给定的时间戳
-                long currentTime = System.currentTimeMillis(); // 当前时间的时间戳
+                String orderId =  CodeVal.split("=")[1];
+                //String preTime =  CodeVal.split("=")[0];
+                //long timestamp = Long.parseLong(preTime); // 给定的时间戳
+                //long currentTime = System.currentTimeMillis(); // 当前时间的时间戳
                 boolean flag = true;
                 // 判断当前时间是否在给定时间戳的3秒内
-                if (currentTime <= timestamp + 3000) {
-                    flag = true;
-                    System.out.println("当前时间在给定时间戳的3秒内");
-                }
+//                if (currentTime <= timestamp + 3000) {
+//                    flag = true;
+//                    System.out.println("当前时间在给定时间戳的3秒内");
+//                }
                 //......以下写业务逻辑
                 //................
                 OrderDTO orderDTO = new OrderDTO();
