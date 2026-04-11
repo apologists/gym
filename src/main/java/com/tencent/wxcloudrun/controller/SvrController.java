@@ -148,8 +148,10 @@ public class SvrController {
                     return jsonObj.toJSONString();
                 }
             }
-            if (split.length == 1 || !split[1].equals("jsf20230606")) {
-                String orderId =  CodeVal.split("=")[1];
+
+            String[] split2 = CodeVal.split("=");
+            if ( split.length == 1 || !split[1].equals("jsf20230606")) {
+                String orderId =  split2.length == 2  ? split2[1] : split2[2];
                 //String preTime =  CodeVal.split("=")[0];
                 //long timestamp = Long.parseLong(preTime); // 给定的时间戳
                 //long currentTime = System.currentTimeMillis(); // 当前时间的时间戳
